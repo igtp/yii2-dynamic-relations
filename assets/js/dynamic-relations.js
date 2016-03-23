@@ -9,7 +9,7 @@ function scriptLoaded(url) {
 
 function cssLoaded(url) {
     var link = document.getElementsByTagName('link');
-    for (var i = csss.length; i--;) {
+    for (var i = link.length; i--;) {
         if (link[i].href == url) return true;
     }
     return false;

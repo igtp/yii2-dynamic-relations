@@ -55,7 +55,7 @@ class DynamicRelations extends Widget
 
 	public static function relate($model, $attr, $request, $name, $clsname)
 	{
-		if($request[$name])
+		if(isset($request[$name]))
 		{
 			if(isset($request[$name]['new']))
 			{
@@ -64,7 +64,8 @@ class DynamicRelations extends Widget
 				{
 					$newmodel = new $clsname;
 					$newmodel->load( $new,$useless );
-					$model->link($attr, $newmodel);		
+					if($model->validate())
+						$model->link($attr, $newmodel);		
 				}
 				unset( $request[$name]['new'] );
 			}
