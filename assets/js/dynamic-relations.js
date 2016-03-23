@@ -7,6 +7,14 @@ function scriptLoaded(url) {
     return false;
 }
 
+function cssLoaded(url) {
+    var link = document.getElementsByTagName('link');
+    for (var i = csss.length; i--;) {
+        if (link[i].href == url) return true;
+    }
+    return false;
+}
+
 jQuery(document).ready(function () {
 
 	var removeFn = function(sel){
@@ -41,6 +49,12 @@ jQuery(document).ready(function () {
 				if(!scriptNode.src || !scriptLoaded( scriptNode.src ) )
 				{
 					jQuery("body").append( scriptNode); 
+				}
+			});
+			$result.filter('link').each(function(k,linkNode){
+				if(!cssLoaded( linkNode.href ) )
+				{
+					jQuery("head").append( linkNode); 
 				}
 			});
 			removeFn( li.find('.remove-dynamic-relation') );
