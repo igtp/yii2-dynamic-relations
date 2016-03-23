@@ -64,7 +64,7 @@ class DynamicRelations extends Widget
 				{
 					$newmodel = new $clsname;
 					$newmodel->load( $new,$useless );
-					if($model->validate())
+					if($newmodel->validate())
 						$model->link($attr, $newmodel);		
 				}
 				unset( $request[$name]['new'] );
