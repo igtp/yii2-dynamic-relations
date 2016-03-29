@@ -1,3 +1,28 @@
+<?php
+
+namespace synatree\dynamicrelations;
+
+use Yii;
+use yii\base\Widget;
+use yii\db\ActiveRecord;
+use yii\helpers\Url;
+
+
+class DynamicRelations extends Widget
+{
+    public $title;
+    public $collection;
+    /** @var ActiveRecord $this ->collectionType */
+    public $collectionType;
+    public $viewPath;
+    public $request;
+
+    public function init()
+    {
+        parent::init();
+    }
+
+    public function run()
     {
 
         if (count($this->collection) && is_object($this->collection[0])) {
@@ -32,3 +57,58 @@
             'ajaxAddRoute' => Url::toRoute(['dynamicrelations/load/template', 'hash' => $hash]),
         ]);
     }
+
+    public function uniqueOptions($field, $uniq)
+    {
+        return [
+            'id' => "$field-$uniq-id",
+            'name' => "$field-$uniq-id",
+            'pluginOptions' => [
+                'uniq' => $uniq
+            ],
+        ];
+    }
+
+    /** @var ActiveRecord $model */
+    public static function relate($model, $attr, $request, $name, $clsname)
+    {
+        if (isset($request[$name])) {
+            if (isset($request[$name]['new'])) {
+                $new = $request[$name]['new'];
+                foreach ($new as $useless => $newattrs) {
+                    /** @var ActiveRecord $newmodel */
+                    $newmodel = new $clsname;
+                    $newmodel->load($new, $useless);
+
+                    $attributesNames = array_keys($newattrs);
+                    if ($newmodel->validate($attributesNames)) {
+                        $model->link($attr, $newmodel);
+                        unset($request[$name]['new'][$useless]);
+                    } else {
+                        $model->addError('Связанные данные', 'Ошибка при  связанных данных,данные не добавлены,  исправьте ошибки! ');
+                    }
+//
+                }
+
+            }
+            foreach ($request[$name] as $id => $relatedattr) {
+                if($id == 'new'){
+                    continue;
+                }
+                /**
+                 * @var  $key
+                 * @var ActiveRecord $relatedModel
+                 */
+                foreach ($model->$attr as $key => $relatedModel) {
+                    if ($relatedModel->id == $id) {
+                        $relatedModel->load([$name => $relatedattr]);
+                        $relatedModel->save();
+                        if ($relatedModel->hasErrors()) {
+                            $model->addError('Связанные данные ', 'Ошибка в связанных данных');
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
