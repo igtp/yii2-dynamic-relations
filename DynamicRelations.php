@@ -16,6 +16,11 @@ class DynamicRelations extends Widget
     public $collectionType;
     public $viewPath;
     public $request;
+    /** @var  array example ['*css class*' => '*Button name*' */
+    public $searchAndSortFields;
+    public $hideBlock ;
+    public $addButton ;
+    public $search ;
 
     public function init()
     {
@@ -55,6 +60,10 @@ class DynamicRelations extends Widget
             'collection' => $this->collection,
             'viewPath' => $this->viewPath,
             'ajaxAddRoute' => Url::toRoute(['dynamicrelations/load/template', 'hash' => $hash]),
+            'fields' => $this->searchAndSortFields,
+            'hideBlock' => $this->hideBlock,
+            'addButton' => $this->addButton,
+            'search' => $this->search,
         ]);
     }
 
@@ -99,7 +108,7 @@ class DynamicRelations extends Widget
                  * @var  $key
                  * @var ActiveRecord $relatedModel
                  */
-                foreach ($model->$attr as $key => $relatedModel) {
+                foreach (is_array($model->$attr) ? $model->$attr : [$model->$attr] as $key => $relatedModel) {
                     if ($relatedModel->id == $id) {
                         $relatedModel->load([$name => $relatedattr]);
                         $relatedModel->save();
