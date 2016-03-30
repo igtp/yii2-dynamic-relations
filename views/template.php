@@ -1,48 +1,46 @@
 <?php
-	use synatree\dynamicrelations\SynatreeAsset;
+/** @var array $fields - fields for search and sort */
+use synatree\dynamicrelations\SynatreeAsset;
 
-	SynatreeAsset::register($this);
+SynatreeAsset::register($this);
 ?>
-<?php \nterms\listjs\ListJs::begin([
-		'id' => 'days-list',
+<?php if ($hideBlock): ?>
+<div class="js_hide" data-title="<?= $title ?>">
+<?php endif ?>
+    <?php \nterms\listjs\ListJs::begin([
+        'id' => 'days-list' . uniqid(),
 
-		'search' => true,
-		'sort' => [
-				'id' => [
-						'label' => Yii::t('app', 'По id '), // Сортировать по премии
-				],
-				'select2-selection' => [
-						'label' => Yii::t('app', 'Заголовок'), // Сортировать по дню недели
-				],
-		],
-		'clientOptions' => [
-				'valueNames' => [
-//						'id',
-						'select2-selection',
-				],
-		],
-]); ?>
-<label class="form-control"><?= $title; ?></label>
-<ul class="list list-group" data-related-view="<?= $ajaxAddRoute; ?>">
-	<li class="list-group-item">
-		<a href="#" class="btn btn-success btn-sm add-dynamic-relation">
-			<i class="glyphicon glyphicon-plus"></i> Add
-		</a>
-	</li>
+        'search' => $search,
+        'sort' => $fields,
+        'clientOptions' => [
+            'valueNames' => $fields ? array_keys($fields) : ['id']
+        ],
+    ]); ?>
+    <label class="form-control"><?= $title; ?></label>
+    <ul class="list list-group" data-related-view="<?= $ajaxAddRoute; ?>" style="max-height:500px;overflow-y: scroll" >
+        <?php if($addButton): ?>
+        <li class="list-group-item">
+            <a href="#" class="btn btn-success btn-sm add-dynamic-relation">
+                <i class="glyphicon glyphicon-plus"></i> Add
+            </a>
+        </li>
+        <?php endif ?>
 
-<?php 
-	foreach($collection as $model)
-	{
-?>
-	<li class="list-group-item">
-		<button type="button" class="close remove-dynamic-relation" aria-label="Remove"><span aria-hidden="true">&times;</span></button>		
-		<div class="dynamic-relation-container">
-			<?= $this->renderFile( $viewPath, [ 'model' => $model ]); ?>
-		</div>
-	</li>	
-<?php
-	}
-?>
-</ul>
-<ul class="pagination"></ul>
-<?php \nterms\listjs\ListJs::end(); ?>
+        <?php
+        foreach ($collection as $model) {
+            ?>
+            <li class="list-group-item">
+                <button type="button" class="close remove-dynamic-relation" aria-label="Remove"><span
+                        aria-hidden="true">&times;</span></button>
+                <div class="dynamic-relation-container">
+                    <?= $this->renderFile($viewPath, ['model' => $model]); ?>
+                </div>
+            </li>
+            <?php
+        }
+        ?>
+    </ul>
+    <?php \nterms\listjs\ListJs::end(); ?>
+<? if($hideBlock): ?>
+</div>
+<? endif ?>
