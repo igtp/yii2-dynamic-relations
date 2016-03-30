@@ -30,8 +30,10 @@ SynatreeAsset::register($this);
         foreach ($collection as $model) {
             ?>
             <li class="list-group-item">
+                <?php if($deleteButton): ?>
                 <button type="button" class="close remove-dynamic-relation" aria-label="Remove"><span
                         aria-hidden="true">&times;</span></button>
+                <?endif?>
                 <div class="dynamic-relation-container">
                     <?= $this->renderFile($viewPath, ['model' => $model]); ?>
                 </div>
