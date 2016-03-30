@@ -21,6 +21,7 @@ class DynamicRelations extends Widget
     public $hideBlock ;
     public $addButton ;
     public $search ;
+    public $deleteButton = true ;
 
     public function init()
     {
@@ -64,6 +65,7 @@ class DynamicRelations extends Widget
             'hideBlock' => $this->hideBlock,
             'addButton' => $this->addButton,
             'search' => $this->search,
+            'deleteButton' => $this->deleteButton,
         ]);
     }
 
