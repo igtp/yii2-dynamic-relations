@@ -18,9 +18,9 @@ class DynamicRelations extends Widget
     public $request;
     /** @var  array example ['*css class*' => '*Button name*' */
     public $searchAndSortFields;
-    public $hideBlock ;
-    public $addButton ;
-    public $search ;
+    public $hideBlock  = false;
+    public $addButton = true ;
+    public $search  = true ;
     public $deleteButton = true ;
 
     public function init()
