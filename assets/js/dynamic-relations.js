@@ -62,3 +62,20 @@ jQuery(document).ready(function () {
 	});
 	removeFn('.remove-dynamic-relation');
 });
+/* script usefull to hide blocks and to open them on page*/
+$(document).ready(function(){
+
+	$('.js_hide').each(function(){
+		var dataTitle = $(this).attr('data-title');
+		var showButton = '<div class="js_show-next-hidden-block" >Показать/скрыть ' + dataTitle + '</div>';
+		$(this).before(showButton);
+		$(this).hide();
+
+
+	});
+	$('.js_show-next-hidden-block').each(function(){
+		$(this).on('click', function() {
+			$(this).next().slideToggle(750);
+		})});
+
+});
