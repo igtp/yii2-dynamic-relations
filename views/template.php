@@ -12,11 +12,15 @@ SynatreeAsset::register($this);
 
         'search' => $search,
         'sort' => $fields,
+        'options' => [
+            'class' => 'relations-frame',
+        ],
         'clientOptions' => [
+
             'valueNames' => $fields ? array_keys($fields) : ['id']
         ],
     ]); ?>
-    <label class="form-control"><?= $title; ?></label>
+<!--    <label class="form-control">--><?//= $title; ?><!--</label>-->
     <ul class="list list-group" data-related-view="<?= $ajaxAddRoute; ?>" style="max-height:500px;overflow-y: scroll" >
         <?php if($addButton): ?>
         <li class="list-group-item">
