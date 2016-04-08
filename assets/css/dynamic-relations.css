@@ -16,3 +16,6 @@
     display: inline;
     font-size: 11px;
 }
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    min-width: 250px;
+}
