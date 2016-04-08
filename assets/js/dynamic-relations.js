@@ -14,6 +14,27 @@ function cssLoaded(url) {
     }
     return false;
 }
+$(window).bind("load", function() {
+    //hide and show blocks with class js_hide
+    $('.js_hide').each(function () {
+        var dataTitle = $(this).attr('data-title');
+        var showButton = '<div class="js_show-next-hidden-block" >' + dataTitle + '<div class="show-subtitle"> (Показать/скрыть <i class="glyphicon glyphicon-arrow-down"></i> )  </div></div>';
+        $(this).before(showButton);
+        $(this).hide();
+
+
+    });
+    $('.js_show-next-hidden-block').each(function () {
+        $(this).on('click', function () {
+            $(this).next().slideToggle(750);
+        })
+    });
+    $('.js_show-all-hidden-blocks').each(function () {
+        $(this).on('click', function () {
+            $(this).next().sublincs('js_hide').slideToggle(750);
+        })
+    });
+});
 
 jQuery(document).ready(function () {
 
@@ -32,27 +53,8 @@ jQuery(document).ready(function () {
                 myLi.remove();
             }
         });
-
-        //hide and show blocks with class js_hide
-        $('.js_hide').each(function () {
-            var dataTitle = $(this).attr('data-title');
-            var showButton = '<div class="js_show-next-hidden-block" >' + dataTitle + '<div class="show-subtitle"> (Показать/скрыть <i class="glyphicon glyphicon-arrow-down"></i> )  </div></div>';
-            $(this).before(showButton);
-            $(this).hide();
-
-
-        });
-        $('.js_show-next-hidden-block').each(function () {
-            $(this).on('click', function () {
-                $(this).next().slideToggle(750);
-            })
-        });
-        $('.js_show-all-hidden-blocks').each(function () {
-            $(this).on('click', function () {
-                $(this).next().sublincs('js_hide').slideToggle(750);
-            })
-        });
     };
+
 
     jQuery('.add-dynamic-relation').on('click', function (event) {
         event.preventDefault();
