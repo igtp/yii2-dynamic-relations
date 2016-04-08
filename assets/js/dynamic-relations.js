@@ -34,6 +34,13 @@ $(window).bind("load", function() {
             $(this).next().sublincs('js_hide').slideToggle(750);
         })
     });
+
+    $('select').select2()
+        .on("change", function(e) {
+            // mostly used event, fired to the original element when the value changes
+            console.log("change val=" + e.val);
+            console.log(e);
+        });
 });
 
 jQuery(document).ready(function () {
