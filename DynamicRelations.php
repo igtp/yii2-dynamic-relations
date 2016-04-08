@@ -22,6 +22,10 @@ class DynamicRelations extends Widget
     public $addButton = true ;
     public $search  = true ;
     public $deleteButton = true ;
+    /**
+     * model which relation we edit
+     * @var  ActiveRecord */
+    public $model = null;
 
     public function init()
     {
@@ -66,6 +70,7 @@ class DynamicRelations extends Widget
             'addButton' => $this->addButton,
             'search' => $this->search,
             'deleteButton' => $this->deleteButton,
+            'parentModel' => $this->model,
         ]);
     }
 
