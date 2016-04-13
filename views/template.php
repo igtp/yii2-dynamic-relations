@@ -39,7 +39,10 @@ SynatreeAsset::register($this);
                         aria-hidden="true">&times;</span></button>
                 <?endif?>
                 <div class="dynamic-relation-container">
-                    <?= $this->renderFile($viewPath, ['model' => $model]); ?>
+                    <?= $this->renderFile($viewPath, [
+                        'model' => $model,
+                        'parentModel' => $parentModel,
+                    ]); ?>
                 </div>
             </li>
             <?php
