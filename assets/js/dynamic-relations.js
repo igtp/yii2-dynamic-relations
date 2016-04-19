@@ -73,8 +73,12 @@ var dynamicRelations = function () {
                     $result = jQuery(result);
                     li = jQuery(me).closest('li').clone().empty();
                     ul = jQuery(me).closest('ul');
+                    var relDiv = $('<div />', {
+                        "class": 'dynamic-relation-container',
+                        });
+                    relDiv.append($result.filter("#root"));
                     ul.append(li);
-                    li.append($result.filter("#root"));
+                    li.append(relDiv);
                     $result.filter('script').each(function (k, scriptNode) {
                         if (!scriptNode.src || !scriptLoaded(scriptNode.src)) {
                             jQuery("body").append(scriptNode);
