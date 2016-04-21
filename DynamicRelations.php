@@ -70,7 +70,7 @@ class DynamicRelations extends Widget
             'addButton' => $this->addButton,
             'search' => $this->search,
             'deleteButton' => $this->deleteButton,
-            'parentModel' => $this->model,
+            'rootModel' => $this->model,
         ]);
     }
 
