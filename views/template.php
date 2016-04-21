@@ -41,7 +41,7 @@ SynatreeAsset::register($this);
                 <div class="dynamic-relation-container">
                     <?= $this->renderFile($viewPath, [
                         'model' => $model,
-                        'parentModel' => $parentModel,
+                        'rootModel' => $rootModel,
                     ]); ?>
                 </div>
             </li>
