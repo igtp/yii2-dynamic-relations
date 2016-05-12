@@ -47,7 +47,8 @@ class DynamicRelations extends Widget
         Yii::$app->session->set('dynamic-relations-' . $hash, ['path' => $this->viewPath, 'cls' => $type]);
 
         $fullCollectionClassName = get_class($this->collectionType);
-        $collectionClassName = end(explode('\\', $fullCollectionClassName));
+        $nameArr = explode('\\', $fullCollectionClassName);
+        $collectionClassName = end($nameArr);
         if (isset($this->request[$collectionClassName]['new'])) {
             foreach($this->request[$collectionClassName]['new'] as $useless => $newattrs) {
                 /** @var ActiveRecord $newCollectionElement */
